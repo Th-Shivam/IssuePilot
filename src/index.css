@@ -1,0 +1,577 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Inter:wght@400;600&display=swap');
+
+:root {
+  /* Cosmic Palette */
+  --space-dark: #0A1A3F;
+  --space-deep: #050b1a;
+  /* Darker variant for gradients */
+  --space-light: #0F2C6E;
+  --accent-glow: #4DA3FF;
+  --accent-secondary: #a855f7;
+  /* Keep a bit of purple for galaxy feel */
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8C7E0;
+  --text-muted: #64748b;
+  --text-glow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Global text shadow for video legibility */
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shine: rgba(255, 255, 255, 0.08);
+  --glass-blur: 16px;
+
+  /* Spacing */
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+
+  /* Animations */
+  --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageFadeIn 0.5s ease-out forwards;
+}
+
+/* Video Background */
+.video-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: #0A1A3F;
+}
+
+/* Fallback for reduced motion or loading */
+.static-fallback {
+  background: #0A1A3F;
+  background-image:
+    radial-gradient(circle at 50% 0%, #0F2C6E 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, #1e1b4b 0%, transparent 30%);
+}
+
+.video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.video-bg.loaded {
+  opacity: 1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Removed heavy overlay for "ekdm clear" visibility */
+  background: rgba(0, 0, 0, 0.1);
+  /* Very subtle tint just to prevent total washout if needed, or can be 0 */
+  backdrop-filter: none;
+  /* Removed blur */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-bg {
+    display: none;
+  }
+
+  .video-background-container {
+    background: #0A1A3F;
+    /* Fallback static color */
+    background-image: radial-gradient(circle at 50% 0%, #0F2C6E 0%, transparent 50%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: transparent;
+  /* Allow video to show */
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.brand-font {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+  text-shadow: var(--text-glow);
+}
+
+.app-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Utilities --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  /* Reduced padding */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  /* Condensed radius */
+  max-width: 450px;
+  /* Reduced max-width */
+  margin: 40px auto;
+  color: var(--text-secondary);
+  animation: fadeUp 0.5s ease-out;
+}
+
+.empty-state h3 {
+  color: white;
+  font-size: 1.25rem;
+  /* Reduced from 1.5rem */
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  line-height: 1.5;
+  font-size: 0.95rem;
+  /* Reduced size */
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4DA3FF, #1B4FFF);
+  color: white;
+  padding: 10px 28px;
+  /* Reduced padding */
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  /* Slightly lighter weight */
+  font-size: 0.95rem;
+  /* Reduced from 1.1rem */
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 20px rgba(27, 79, 255, 0.4);
+  /* Tighter shadow */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  /* More subtle hover */
+  box-shadow: 0 0 40px rgba(27, 79, 255, 0.6);
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 10px 28px;
+  /* Reduced padding */
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  /* Lighter weight */
+  font-size: 0.95rem;
+  /* Reduced size */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Filter Bar Adaptation (Control Console) --- */
+.filter-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.25rem;
+  /* Tighter gap */
+  margin: 0 auto 2.5rem auto;
+  /* Reduced margin */
+  padding: 1.25rem 2rem;
+  /* Reduced padding */
+  background: rgba(10, 20, 60, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  /* Slightly tighter radius */
+  border: 1px solid rgba(77, 163, 255, 0.2);
+  box-shadow:
+    0 15px 30px -10px rgba(0, 0, 0, 0.5),
+    /* Tighter shadow */
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  max-width: fit-content;
+  position: relative;
+  z-index: 10;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Tighter gap */
+}
+
+.filter-label {
+  font-size: 0.7rem;
+  /* Reduced label size */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-glow);
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  /* Smaller arrow */
+  border-right: 4px solid transparent;
+  border-top: 4px solid var(--accent-glow);
+  pointer-events: none;
+}
+
+select {
+  background-color: rgba(5, 11, 23, 0.5);
+  color: white;
+  border: 1px solid rgba(77, 163, 255, 0.2);
+  padding: 10px 36px 10px 16px;
+  /* Reduced padding */
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  /* Reduced font size */
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 180px;
+  /* Reduced width */
+  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-image: none;
+}
+
+select:hover {
+  border-color: var(--accent-glow);
+  background-color: rgba(5, 11, 23, 0.7);
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--accent-glow);
+  box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.2);
+  /* Tighter focus ring */
+}
+
+select option {
+  background-color: #0A1A3F;
+  color: white;
+  padding: 8px;
+}
+
+.btn-search {
+  appearance: none;
+  background: var(--accent-glow);
+  color: var(--space-deep);
+  border: none;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 40px;
+  /* Match updated select height */
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  /* Reduced font size */
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(77, 163, 255, 0.3);
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.btn-search:hover {
+  background: #60aeff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(77, 163, 255, 0.5);
+}
+
+.btn-search:active {
+  transform: translateY(1px);
+}
+
+@media(max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    width: auto;
+    align-items: stretch;
+    padding: 1.25rem;
+  }
+
+  select {
+    width: 100%;
+  }
+}
+
+/* --- Issue Grid Adaptation --- */
+.issue-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  /* Slightly narrower cards allowed */
+  gap: 20px;
+  /* Reduced gap */
+  padding-bottom: 60px;
+}
+
+.issue-card {
+  background: rgba(15, 25, 70, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  /* Reduced radius */
+  padding: 20px;
+  /* Reduced padding */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.issue-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top right, rgba(77, 163, 255, 0.1), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.issue-card:hover {
+  transform: translateY(-4px);
+  /* Smaller lift */
+  border-color: rgba(77, 163, 255, 0.4);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4), 0 0 20px rgba(77, 163, 255, 0.1);
+}
+
+.issue-card:hover::before {
+  opacity: 1;
+}
+
+.issue-title {
+  color: white;
+  font-size: 1.1rem;
+  /* Reduced from 1.25rem */
+  margin-bottom: 0.4rem;
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.issue-repo {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  /* Reduced size */
+  margin-bottom: auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 12px;
+}
+
+/* Badges */
+.labels {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.label {
+  padding: 4px 10px;
+  /* Reduced padding */
+  border-radius: 20px;
+  font-size: 0.7rem;
+  /* Reduced size */
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Specific Badge Colors */
+.badge-easy,
+.badge-good-first-issue {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.badge-medium,
+.badge-help-wanted {
+  background: rgba(249, 115, 22, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.badge-hard {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.badge-default {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.view-btn {
+  background: transparent;
+  border: 1px solid var(--accent-glow);
+  color: var(--accent-glow);
+  width: 100%;
+  padding: 10px;
+  /* Reduced padding */
+  border-radius: 10px;
+  /* Matching card radius feel */
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  /* Added explicit smaller size */
+  display: block;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+}
+
+.view-btn:hover {
+  background: var(--accent-glow);
+  color: var(--space-deep);
+  box-shadow: 0 0 15px rgba(77, 163, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+/* --- Header Specifics --- */
+header {
+  /* Resetting previous header styles in favor of new Header component styling */
+  all: unset;
+}
+
+/* Loading/Empty */
+.loading-spinner {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
