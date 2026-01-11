@@ -1,20 +1,24 @@
+/**
+ * IssueCard Component
+ * Displays individual issue details with a difficulty badge and link.
+ */
 function IssueCard({ title, repo, difficulty, githubUrl }) {
-    // Helper to determine badge color class
-    const getBadgeClass = (difficulty) => {
-        const diff = difficulty.toLowerCase();
-        if (diff.includes('good') || diff.includes('beginner') || diff.includes('easy')) return 'badge-easy';
-        if (diff.includes('help') || diff.includes('medium')) return 'badge-medium';
-        if (diff.includes('hard')) return 'badge-hard';
+
+    // Determine badge color based on difficulty/label
+    const getBadgeClass = (level) => {
+        const lowerLevel = level.toLowerCase();
+        if (['good', 'beginner', 'easy'].some(k => lowerLevel.includes(k))) return 'badge-easy';
+        if (['help', 'medium'].some(k => lowerLevel.includes(k))) return 'badge-medium';
+        if (['hard', 'advanced'].some(k => lowerLevel.includes(k))) return 'badge-hard';
         return 'badge-default';
     };
 
     return (
         <div className="issue-card">
-            <h3 className="issue-title">
-                {title}
-            </h3>
+            <h3 className="issue-title">{title}</h3>
+
             <div className="issue-repo">
-                <span>📦</span> {repo}
+                <span role="img" aria-label="repo">📦</span> {repo}
             </div>
 
             <div className="labels">
@@ -23,8 +27,13 @@ function IssueCard({ title, repo, difficulty, githubUrl }) {
                 </span>
             </div>
 
-            <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="view-btn">
-                View Issue <span style={{ marginLeft: '6px' }}>↗</span>
+            <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="view-btn"
+            >
+                View Issue <span>↗</span>
             </a>
         </div>
     );
