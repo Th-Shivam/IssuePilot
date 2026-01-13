@@ -1,8 +1,8 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.github.com';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://t9gywgbya3.execute-api.us-east-1.amazonaws.com/v1';
 
 /**
  * Generic fetch wrapper to handle API calls
- * @param {string} endpoint - The API endpoint to call (e.g., '/search/issues')
+ * @param {string} endpoint - The API endpoint to call (e.g., '/issues')
  * @param {Object} options - Fetch options (method, headers, body, etc.)
  * @returns {Promise<any>} - The JSON response
  */
@@ -11,7 +11,7 @@ export const apiCall = async (endpoint, options = {}) => {
   
   const defaultHeaders = {
     'Content-Type': 'application/json',
-    'Accept': 'application/vnd.github.v3+json',
+    // 'Accept': 'application/vnd.github.v3+json', // Not needed for our AWS API
   };
 
   const config = {
