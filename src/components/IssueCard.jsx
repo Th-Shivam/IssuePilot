@@ -6,6 +6,7 @@ function IssueCard({ title, repo, difficulty, githubUrl }) {
 
     // Determine badge color based on difficulty/label
     const getBadgeClass = (level) => {
+        if (!level) return 'badge-default';
         const lowerLevel = level.toLowerCase();
         if (['good', 'beginner', 'easy'].some(k => lowerLevel.includes(k))) return 'badge-easy';
         if (['help', 'medium'].some(k => lowerLevel.includes(k))) return 'badge-medium';

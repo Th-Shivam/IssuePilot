@@ -6,16 +6,21 @@ function FilterBar({ filters, onFilterChange }) {
 
     // Configuration for dropdown options
     const stacks = [
+        { value: 'all', label: 'All Technologies' },
         { value: 'javascript', label: 'JavaScript' },
+        { value: 'typescript', label: 'TypeScript' },
         { value: 'react', label: 'React' },
         { value: 'python', label: 'Python' },
-        { value: 'go', label: 'Go' }
+        { value: 'go', label: 'Go' },
+        { value: 'java', label: 'Java' },
+        { value: 'rust', label: 'Rust' }
     ];
 
     const difficulties = [
-        { value: 'good first issue', label: 'Good First Issue' },
-        { value: 'help wanted', label: 'Help Wanted' },
-        { value: 'beginner', label: 'Beginner' }
+        { value: 'all', label: 'All Levels' },
+        { value: 'beginner', label: 'Beginner / Good First Issue' },
+        { value: 'medium', label: 'Medium / Help Wanted' },
+        { value: 'hard', label: 'Hard / Bug' }
     ];
 
     return (

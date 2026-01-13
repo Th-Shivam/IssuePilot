@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import IssueCard from './IssueCard';
 import { dummyIssues } from '../data/dummyIssues';
+import { apiCall } from '../services/api';
 
 function IssueList({ filters }) {
     // State to hold the filtering results
@@ -33,38 +34,51 @@ function IssueList({ filters }) {
         });
     };
 
+
+
     // Real API Fetcher
     const fetchFromAPI = async () => {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        if (!apiUrl) {
-            console.warn('VITE_API_URL is not defined in .env');
-            return [];
-        }
-
         try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            // Client-side filtering (since our basic Lambda returns everything)
-            return data.filter(issue => {
-                const stackMatch = filters.language === 'all' ||
-                    issue.techStack.toLowerCase() === filters.language.toLowerCase();
+            // 1. Map Frontend Filters to Backend Params
+            let categoriesToFetch = [];
+            const label = filters.label.toLowerCase();
 
-                let difficultyMatch = true;
-                if (filters.label !== 'all') {
-                    if (filters.label === 'good first issue' || filters.label === 'help wanted') {
-                        difficultyMatch = issue.labels.includes(filters.label);
-                    } else {
-                        difficultyMatch = issue.difficulty.toLowerCase() === filters.label.toLowerCase();
-                    }
-                }
-                return stackMatch && difficultyMatch;
+            // Map 'label' filter to Backend 'category'
+            if (label === 'all') {
+                categoriesToFetch = ['Beginner', 'Medium', 'Hard'];
+            } else if (['good first issue', 'beginner', 'easy'].includes(label)) {
+                categoriesToFetch = ['Beginner'];
+            } else if (['help wanted', 'enhancement', 'medium'].includes(label)) {
+                categoriesToFetch = ['Medium'];
+            } else if (['bug', 'performance', 'hard'].includes(label)) {
+                categoriesToFetch = ['Hard'];
+            } else {
+                categoriesToFetch = ['Medium']; // Default fallback
+            }
+
+            // Map 'language' filter to Backend 'techStack'
+            const techStack = filters.language === 'all' ? null : filters.language;
+
+            // 2. Fetch Data (Parallel for 'all' categories)
+            const promises = categoriesToFetch.map(category => {
+                const params = new URLSearchParams();
+                params.append('category', category);
+                if (techStack) params.append('techStack', techStack);
+
+                return apiCall(`/Issues?${params.toString()}`);
             });
+
+            const responses = await Promise.all(promises);
+
+            // 3. Merge & Flatten Results
+            // Each response is { count: N, items: [...] }
+            const allItems = responses.flatMap(res => res?.items || []);
+
+            return allItems;
+
         } catch (error) {
             console.error("API Fetch Error:", error);
-            throw error; // Re-throw to be caught by the main effect
+            throw error;
         }
     };
 
@@ -129,12 +143,12 @@ function IssueList({ filters }) {
             </div>
 
             <div className="issue-list">
-                {issues.map(issue => (
+                {issues.map((issue, index) => (
                     <IssueCard
-                        key={issue.id}
+                        key={issue.issueId || index}
                         title={issue.title}
                         repo={issue.repository}
-                        difficulty={issue.difficulty}
+                        difficulty={issue.category || "Medium"}
                         githubUrl={issue.githubUrl}
                     />
                 ))}
