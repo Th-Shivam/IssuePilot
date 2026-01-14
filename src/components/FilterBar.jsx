@@ -6,14 +6,7 @@ function FilterBar({ filters, onFilterChange }) {
 
     // Configuration for dropdown options
     const stacks = [
-        { value: 'all', label: 'All Technologies' },
-        { value: 'javascript', label: 'JavaScript' },
-        { value: 'typescript', label: 'TypeScript' },
-        { value: 'react', label: 'React' },
-        { value: 'python', label: 'Python' },
-        { value: 'go', label: 'Go' },
-        { value: 'java', label: 'Java' },
-        { value: 'rust', label: 'Rust' }
+        { value: 'all', label: 'All Technologies' }
     ];
 
     const difficulties = [
@@ -27,11 +20,27 @@ function FilterBar({ filters, onFilterChange }) {
         <div className="filter-bar">
             {/* Tech Stack Filter */}
             <div className="filter-group">
-                <label className="filter-label">Tech Stack</label>
+                <label className="filter-label">
+                    Tech Stack
+                    <span style={{
+                        marginLeft: '8px',
+                        fontSize: '0.75rem',
+                        color: 'var(--accent-primary)',
+                        fontWeight: '500',
+                        opacity: '0.8'
+                    }}>
+                        (Coming Soon)
+                    </span>
+                </label>
                 <div className="select-wrapper">
                     <select
                         value={filters.language}
-                        onChange={(e) => onFilterChange('language', e.target.value)}
+                        disabled
+                        style={{
+                            cursor: 'not-allowed',
+                            opacity: '0.6',
+                            backgroundColor: 'var(--bg-secondary)'
+                        }}
                     >
                         {stacks.map(opt => (
                             <option key={opt.value} value={opt.value}>{opt.label}</option>
