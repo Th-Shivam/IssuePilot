@@ -29,12 +29,31 @@ function Login() {
 
     return (
         <div className="container" style={{ paddingTop: '120px', minHeight: '80vh' }}>
+            <style>{`
+                @media (max-width: 600px) {
+                    .login-container {
+                        padding: 1.5rem 1rem !important;
+                        width: 95% !important;
+                    }
+                    .privacy-banner {
+                        padding: 1.2rem !important;
+                    }
+                    .privacy-banner li {
+                        font-size: 0.9rem !important;
+                        align-items: flex-start !important;
+                    }
+                    .privacy-banner li > div {
+                        margin-top: 2px;
+                    }
+                }
+            `}</style>
+
             <div style={{
                 maxWidth: '500px',
                 margin: '0 auto',
                 textAlign: 'center',
                 padding: '3rem 2rem'
-            }}>
+            }} className="login-wrapper">
                 <div style={{ marginBottom: '2rem' }}>
                     <h1 style={{
                         fontSize: '2.5rem',
@@ -58,7 +77,7 @@ function Login() {
                     borderRadius: '12px',
                     padding: '2.5rem',
                     marginTop: '2rem'
-                }}>
+                }} className="login-container">
                     <div style={{ marginBottom: '2rem' }}>
                         <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🚀</div>
                         <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Sign in to continue</h2>
@@ -95,7 +114,7 @@ function Login() {
 
 
                     {/* Privacy Note - Premium Glass Style */}
-                    <div style={{
+                    <div className="privacy-banner" style={{
                         marginTop: '1.5rem',
                         padding: '1.5rem',
                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%)',
@@ -132,7 +151,8 @@ function Login() {
                                     minWidth: '24px', height: '24px',
                                     borderRadius: '50%', background: 'rgba(16, 185, 129, 0.2)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    color: '#34d399', fontSize: '0.8rem'
+                                    color: '#34d399', fontSize: '0.8rem',
+                                    flexShrink: 0
                                 }}>✓</div>
                                 <span>We <strong>ONLY</strong> access your public profile (name, email, avatar).</span>
                             </li>
@@ -141,7 +161,8 @@ function Login() {
                                     minWidth: '24px', height: '24px',
                                     borderRadius: '50%', background: 'rgba(239, 68, 68, 0.2)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    color: '#f87171', fontSize: '0.8rem'
+                                    color: '#f87171', fontSize: '0.8rem',
+                                    flexShrink: 0
                                 }}>✕</div>
                                 <span>We <strong>CANNOT</strong> read your code, access private repos, or make changes.</span>
                             </li>
@@ -150,7 +171,8 @@ function Login() {
                                     minWidth: '24px', height: '24px',
                                     borderRadius: '50%', background: 'rgba(59, 130, 246, 0.2)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    color: '#60a5fa', fontSize: '0.9rem'
+                                    color: '#60a5fa', fontSize: '0.9rem',
+                                    flexShrink: 0
                                 }}>🛡️</div>
                                 <span>You can revoke access anytime from GitHub settings.</span>
                             </li>
