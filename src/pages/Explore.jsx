@@ -4,8 +4,8 @@ import IssueList from '../components/IssueList';
 
 function Explore() {
   const [filters, setFilters] = useState({
-    language: 'javascript',
-    label: 'good first issue'
+    language: 'all',
+    label: 'all'
   });
 
   const handleFilterChange = (key, value) => {
