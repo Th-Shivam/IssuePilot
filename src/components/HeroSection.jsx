@@ -16,7 +16,7 @@ function HeroSection() {
 
         <div className="hero-actions">
           <Link to="/explore" className="btn-primary">Explore Opportunities</Link>
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-glass">Join Community</a>
+          <Link to="/community" className="btn-glass">Join Community</Link>
         </div>
       </div>
 
