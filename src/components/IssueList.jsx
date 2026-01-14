@@ -41,10 +41,11 @@ function IssueList({ filters }) {
         try {
             // 1. Map Frontend Filters to Backend Params
             let categoriesToFetch = [];
-            const label = filters.label.toLowerCase();
+            const label = filters.label.toLowerCase().trim();
+            const language = filters.language.toLowerCase().trim();
 
             // Map 'label' filter to Backend 'category'
-            if (label === 'all') {
+            if (label === 'all' || label === 'all levels') {
                 categoriesToFetch = ['Beginner', 'Medium', 'Hard'];
             } else if (['good first issue', 'beginner', 'easy'].includes(label)) {
                 categoriesToFetch = ['Beginner'];
@@ -57,7 +58,7 @@ function IssueList({ filters }) {
             }
 
             // Map 'language' filter to Backend 'techStack'
-            const techStack = filters.language === 'all' ? null : filters.language;
+            const techStack = (language === 'all' || language === 'all technologies') ? null : filters.language;
 
             // 2. Fetch Data (Parallel for 'all' categories)
             const promises = categoriesToFetch.map(category => {
