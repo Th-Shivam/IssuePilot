@@ -94,22 +94,26 @@ function Login() {
                     </button>
 
 
-                    {/* Privacy Note - List Style Banner */}
+                    {/* Privacy Note - Premium Glass Style */}
                     <div style={{
                         marginTop: '1.5rem',
-                        padding: '1.2rem',
-                        background: 'rgba(16, 185, 129, 0.08)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        borderRadius: '12px',
-                        textAlign: 'left' // Reset text alignment for list
+                        padding: '1.5rem',
+                        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(16, 185, 129, 0.2)',
+                        borderRadius: '16px',
+                        boxShadow: '0 8px 32px 0 rgba(16, 185, 129, 0.1)',
+                        textAlign: 'left'
                     }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                            <span style={{ fontSize: '1.4rem' }}>🔒</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.2rem' }}>
+                            <span style={{ fontSize: '1.5rem', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.4))' }}>🔒</span>
                             <p style={{
-                                fontSize: '1rem',
+                                fontSize: '1.1rem',
                                 fontWeight: '700',
-                                color: '#10b981',
-                                margin: 0
+                                color: '#34d399', // Brighter green for contrast
+                                margin: 0,
+                                textShadow: '0 0 20px rgba(16, 185, 129, 0.3)'
                             }}>
                                 Your Privacy is 100% Safe
                             </p>
@@ -121,18 +125,33 @@ function Login() {
                             listStyle: 'none',
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '0.8rem'
+                            gap: '1rem'
                         }}>
-                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
-                                <span style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }}>✅</span>
+                            <li style={{ display: 'flex', gap: '1rem', fontSize: '0.95rem', color: '#e2e8f0', alignItems: 'center' }}>
+                                <div style={{
+                                    minWidth: '24px', height: '24px',
+                                    borderRadius: '50%', background: 'rgba(16, 185, 129, 0.2)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    color: '#34d399', fontSize: '0.8rem'
+                                }}>✓</div>
                                 <span>We <strong>ONLY</strong> access your public profile (name, email, avatar).</span>
                             </li>
-                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
-                                <span style={{ color: '#ef4444', flexShrink: 0, marginTop: '2px' }}>❌</span>
+                            <li style={{ display: 'flex', gap: '1rem', fontSize: '0.95rem', color: '#e2e8f0', alignItems: 'center' }}>
+                                <div style={{
+                                    minWidth: '24px', height: '24px',
+                                    borderRadius: '50%', background: 'rgba(239, 68, 68, 0.2)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    color: '#f87171', fontSize: '0.8rem'
+                                }}>✕</div>
                                 <span>We <strong>CANNOT</strong> read your code, access private repos, or make changes.</span>
                             </li>
-                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
-                                <span style={{ color: '#3b82f6', flexShrink: 0, marginTop: '2px' }}>🛡️</span>
+                            <li style={{ display: 'flex', gap: '1rem', fontSize: '0.95rem', color: '#e2e8f0', alignItems: 'center' }}>
+                                <div style={{
+                                    minWidth: '24px', height: '24px',
+                                    borderRadius: '50%', background: 'rgba(59, 130, 246, 0.2)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    color: '#60a5fa', fontSize: '0.9rem'
+                                }}>🛡️</div>
                                 <span>You can revoke access anytime from GitHub settings.</span>
                             </li>
                         </ul>
