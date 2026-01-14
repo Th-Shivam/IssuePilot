@@ -93,11 +93,57 @@ function Login() {
                         Sign in with GitHub
                     </button>
 
-                    <p style={{
+
+                    {/* Privacy Note - List Style Banner */}
+                    <div style={{
                         marginTop: '1.5rem',
-                        fontSize: '0.85rem',
+                        padding: '1.2rem',
+                        background: 'rgba(16, 185, 129, 0.08)',
+                        border: '1px solid rgba(16, 185, 129, 0.3)',
+                        borderRadius: '12px',
+                        textAlign: 'left' // Reset text alignment for list
+                    }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                            <span style={{ fontSize: '1.4rem' }}>🔒</span>
+                            <p style={{
+                                fontSize: '1rem',
+                                fontWeight: '700',
+                                color: '#10b981',
+                                margin: 0
+                            }}>
+                                Your Privacy is 100% Safe
+                            </p>
+                        </div>
+
+                        <ul style={{
+                            margin: 0,
+                            paddingLeft: '0',
+                            listStyle: 'none',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.8rem'
+                        }}>
+                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
+                                <span style={{ color: '#10b981', flexShrink: 0, marginTop: '2px' }}>✅</span>
+                                <span>We <strong>ONLY</strong> access your public profile (name, email, avatar).</span>
+                            </li>
+                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
+                                <span style={{ color: '#ef4444', flexShrink: 0, marginTop: '2px' }}>❌</span>
+                                <span>We <strong>CANNOT</strong> read your code, access private repos, or make changes.</span>
+                            </li>
+                            <li style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', color: 'var(--text-secondary)', alignItems: 'flex-start' }}>
+                                <span style={{ color: '#3b82f6', flexShrink: 0, marginTop: '2px' }}>🛡️</span>
+                                <span>You can revoke access anytime from GitHub settings.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p style={{
+                        marginTop: '1rem',
+                        fontSize: '0.75rem',
                         color: 'var(--text-secondary)',
-                        lineHeight: '1.5'
+                        lineHeight: '1.5',
+                        textAlign: 'center'
                     }}>
                         By signing in, you agree to our terms of service and privacy policy
                     </p>
