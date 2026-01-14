@@ -1,10 +1,18 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const isActive = (path) => location.pathname === path;
 
   const isExplore = location.pathname === '/explore';
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <header className={`navbar-container ${isExplore ? 'explore-mode' : ''}`}>
@@ -20,13 +28,56 @@ function Header() {
           <Link to="/explore" className={`nav-icon ${isActive('/explore') ? 'active' : ''}`} title="Explore">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
           </Link>
-          <a href="#" className="nav-icon" title="Community">
+          <Link to="/community" className={`nav-icon ${isActive('/community') ? 'active' : ''}`} title="Community">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg>
-          </a>
+          </Link>
         </nav>
 
         <div className="nav-right">
-          <button className="btn-signin">Sign In</button>
+          {user ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '4px 12px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '20px'
+              }}>
+                <img
+                  src={user.user_metadata?.avatar_url}
+                  alt={user.user_metadata?.user_name || 'User'}
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    border: '2px solid rgba(255, 255, 255, 0.3)'
+                  }}
+                />
+                <span style={{
+                  fontSize: '0.85rem',
+                  color: 'white',
+                  fontWeight: '500'
+                }}>
+                  {user.user_metadata?.user_name || user.email}
+                </span>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="btn-signin"
+                style={{ padding: '6px 16px', fontSize: '0.85rem' }}
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate('/login')}
+              className="btn-signin"
+            >
+              Sign In
+            </button>
+          )}
         </div>
       </div>
 
