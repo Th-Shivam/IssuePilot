@@ -10,7 +10,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Th-Shivam/IssuePilot)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-![IssuePilot Banner](https://via.placeholder.com/1200x400/0a0e27/4DA3FF?text=IssuePilot+-+Begin+Your+Open+Source+Journey)
+![IssuePilot Banner](./public/home.png)
 
 </div>
 
