@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user, signOut, signInWithGitHub } = useAuth();
   const isActive = (path) => location.pathname === path;
 
   const isExplore = location.pathname === '/explore';
@@ -72,7 +72,7 @@ function Header() {
             </div>
           ) : (
             <button
-              onClick={() => navigate('/login')}
+              onClick={signInWithGitHub}
               className="btn-signin"
             >
               Sign In
