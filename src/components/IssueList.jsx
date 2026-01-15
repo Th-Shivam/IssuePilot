@@ -8,6 +8,15 @@ function IssueList({ filters }) {
     const [issues, setIssues] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // --- Pagination State ---
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 20;
+
+    // Reset page when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filters]);
+
     // --- Data Source Abstraction ---
     const USE_REAL_API = true; // Switched to true for API integration
 
@@ -137,6 +146,18 @@ function IssueList({ filters }) {
     }
 
     // Results State
+    // Calculate pagination logic
+    const totalPages = Math.ceil(issues.length / ITEMS_PER_PAGE);
+    const indexOfLastIssue = currentPage * ITEMS_PER_PAGE;
+    const indexOfFirstIssue = indexOfLastIssue - ITEMS_PER_PAGE;
+    const currentIssues = issues.slice(indexOfFirstIssue, indexOfLastIssue);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        // Scroll to top of list smoothly
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+    };
+
     return (
         <div className="issue-list-container">
             <div className="list-meta" style={{ marginBottom: '20px', color: 'var(--text-secondary)', fontSize: '0.9rem', textAlign: 'center' }}>
@@ -144,7 +165,7 @@ function IssueList({ filters }) {
             </div>
 
             <div className="issue-list">
-                {issues.map((issue, index) => (
+                {currentIssues.map((issue, index) => (
                     <IssueCard
                         key={issue.issueId || index}
                         title={issue.title}
@@ -154,6 +175,55 @@ function IssueList({ filters }) {
                     />
                 ))}
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+                <div className="pagination-controls" style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    marginTop: '3rem'
+                }}>
+                    <button
+                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                        disabled={currentPage === 1}
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            color: 'white',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                            opacity: currentPage === 1 ? 0.5 : 1,
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        Previous
+                    </button>
+
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                        Page <span style={{ color: 'white', fontWeight: 'bold' }}>{currentPage}</span> of {totalPages}
+                    </span>
+
+                    <button
+                        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                        disabled={currentPage === totalPages}
+                        style={{
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            color: 'white',
+                            padding: '8px 16px',
+                            borderRadius: '8px',
+                            cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                            opacity: currentPage === totalPages ? 0.5 : 1,
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
