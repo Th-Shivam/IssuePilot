@@ -25,7 +25,7 @@ export const handler = async (event) => {
 
         // 3. Optional Filter: Tech Stack
         if (techStack) {
-            commandInput.FilterExpression = "contains(techStack, :tech) OR contains(title, :tech) OR contains(body, :tech)";
+            commandInput.FilterExpression = "contains(techStack, :tech) OR contains(title, :tech)";
             commandInput.ExpressionAttributeValues[":tech"] = techStack;
         }
 
