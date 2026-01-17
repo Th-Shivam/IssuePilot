@@ -677,3 +677,99 @@ header {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
 }
+
+/* --- Footer Branding & Mobile Optimization --- */
+
+.credits-note {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0 80px 0;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 10;
+}
+
+/* Common Branding Container Styles */
+.branding-container {
+  position: fixed;
+  bottom: 30px;
+  z-index: 2000;
+  /* High z-index but manageable */
+  font-family: 'Inter', sans-serif;
+  pointer-events: none;
+}
+
+.branding-left {
+  left: 40px;
+  text-align: left;
+}
+
+.branding-right {
+  right: 40px;
+  text-align: right;
+}
+
+.brand-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 3px;
+  margin-bottom: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.brand-name {
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.branding-left .brand-name {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.branding-right .brand-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Mobile Responsiveness for Footer */
+@media (max-width: 768px) {
+  .credits-note {
+    padding-bottom: 20px;
+    /* Reduce padding on mobile */
+  }
+
+  .branding-container {
+    position: static;
+    /* Stack them in flow */
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    padding: 0 20px;
+    display: block;
+    pointer-events: auto;
+    /* Allow interaction if needed, though they are just text */
+  }
+
+  .branding-left,
+  .branding-right {
+    text-align: center;
+    margin-bottom: 24px;
+    /* Spacing between stacked items */
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  /* Adjust font sizes for mobile if needed */
+  .branding-left .brand-name {
+    font-size: 1.5rem;
+  }
+}
