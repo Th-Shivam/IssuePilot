@@ -117,8 +117,8 @@ html {
 
 body {
   margin: 0;
-  background-color: transparent;
-  /* Allow video to show */
+  background-color: #0A1A3F;
+  /* Dark fallback background to match video theme */
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
@@ -678,36 +678,31 @@ header {
   border-radius: 20px;
 }
 
-/* --- Footer Branding & Mobile Optimization --- */
-
-.credits-note {
-  width: 100%;
-  text-align: center;
-  padding: 20px 0 80px 0;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  position: relative;
-  z-index: 10;
+/* --- Landing Page Footer --- */
+.landing-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 40px 30px 40px;
+  pointer-events: none;
+  z-index: 2000;
 }
 
 /* Common Branding Container Styles */
 .branding-container {
-  position: fixed;
-  bottom: 30px;
-  z-index: 2000;
-  /* High z-index but manageable */
   font-family: 'Inter', sans-serif;
   pointer-events: none;
 }
 
 .branding-left {
-  left: 40px;
   text-align: left;
 }
 
 .branding-right {
-  right: 40px;
   text-align: right;
 }
 
@@ -742,33 +737,26 @@ header {
 /* Mobile Responsiveness for Footer */
 @media (max-width: 768px) {
   .credits-note {
-    padding-bottom: 20px;
-    /* Reduce padding on mobile */
+    display: none;
   }
 
-  .branding-container {
-    position: static;
-    /* Stack them in flow */
-    width: 100%;
-    margin-top: 20px;
-    text-align: center;
-    padding: 0 20px;
-    display: block;
-    pointer-events: auto;
-    /* Allow interaction if needed, though they are just text */
+  .landing-footer {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px 20px;
+    gap: 0;
   }
 
-  .branding-left,
   .branding-right {
-    text-align: center;
-    margin-bottom: 24px;
-    /* Spacing between stacked items */
-    left: auto;
-    right: auto;
-    bottom: auto;
+    display: none;
   }
 
-  /* Adjust font sizes for mobile if needed */
+  .branding-left {
+    text-align: center;
+  }
+
   .branding-left .brand-name {
     font-size: 1.5rem;
   }

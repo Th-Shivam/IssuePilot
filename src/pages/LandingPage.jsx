@@ -13,25 +13,26 @@ function LandingPage() {
                 </div>
             </div>
 
-            {/* Developer Branding (Left) */}
-            <div className="branding-container branding-left">
-                <div className="brand-label">
-                    DEVELOPED BY
+            {/* Footer Branding */}
+            <footer className="landing-footer">
+                <div className="branding-container branding-left">
+                    <div className="brand-label">
+                        DEVELOPED BY
+                    </div>
+                    <div className="brand-name">
+                        ANOTNET
+                    </div>
                 </div>
-                <div className="brand-name">
-                    ANOTNET
-                </div>
-            </div>
 
-            {/* Community Branding (Right) */}
-            <div className="branding-container branding-right">
-                <div className="brand-label">
-                    ENGINEERED BY
+                <div className="branding-container branding-right">
+                    <div className="brand-label">
+                        ENGINEERED BY
+                    </div>
+                    <div className="brand-name">
+                        SHIVAM SINGH
+                    </div>
                 </div>
-                <div className="brand-name">
-                    SHIVAM SINGH
-                </div>
-            </div>
+            </footer>
         </>
     );
 }
