@@ -38,10 +38,28 @@
 
 - **🔍 Smart Issue Discovery** - Find beginner-friendly issues across GitHub
 - **🎚️ Advanced Filtering** - Filter by difficulty level and technology stack
+- **🎓 GSoC Organizations Filter** - Discover issues from Google Summer of Code participating organizations
 - **🔐 GitHub OAuth** - Secure authentication via Supabase
 - **💬 Community Hub** - Join Discord & WhatsApp communities
 - **🌙 Dark Mode** - Beautiful space-themed UI with glassmorphism
 - **📱 Responsive Design** - Works seamlessly on all devices
+
+### 🎓 GSoC Organizations Filter
+
+IssuePilot highlights issues from organizations that have historically participated in Google Summer of Code (GSoC). This feature helps you:
+
+- Discover projects with active mentorship programs
+- Find beginner-friendly issues in GSoC-relevant repositories
+- Explore organizations that value open-source contributions
+
+**Important Disclaimer:**
+
+- ⚠️ **Not a guarantee:** Contributing to GSoC organizations does NOT guarantee selection into the GSoC program
+- 📝 **Selection criteria:** GSoC acceptance depends on your proposal quality, contribution history, communication with mentors, and competition
+- 🎯 **Our goal:** We simply help you find relevant issues—your success depends on your effort and engagement
+- 💡 **Best practice:** Contribute to projects you're genuinely interested in, regardless of GSoC status
+
+The GSoC organizations list is manually curated and updated annually (around February-March).
 
 ### 🚀 Technical Highlights
 
