@@ -99,7 +99,14 @@ function IssueList({ filters }) {
         const fetchData = async () => {
             try {
                 const data = USE_REAL_API ? await fetchFromAPI() : await fetchFromDummy();
-                setIssues(data);
+
+                // Apply GSoC filter if enabled
+                let filteredData = data;
+                if (filters.gsocOnly) {
+                    filteredData = data.filter(issue => issue.isGSoC === true);
+                }
+
+                setIssues(filteredData);
             } catch (error) {
                 console.error("Failed to fetch issues:", error);
                 setIssues([]);
@@ -160,6 +167,119 @@ function IssueList({ filters }) {
 
     return (
         <div className="issue-list-container">
+            {/* GSoC Disclaimer Banner - Premium Professional Design */}
+            {filters.gsocOnly && (
+                <div style={{
+                    position: 'relative',
+                    background: 'linear-gradient(135deg, rgba(255, 193, 7, 0.12), rgba(255, 152, 0, 0.08))',
+                    border: '1.5px solid rgba(255, 193, 7, 0.35)',
+                    borderRadius: '16px',
+                    padding: '20px 24px',
+                    marginBottom: '28px',
+                    backdropFilter: 'blur(12px)',
+                    boxShadow: '0 8px 32px rgba(255, 193, 7, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                    overflow: 'hidden',
+                    animation: 'slideInDown 0.4s ease-out'
+                }}>
+                    {/* Decorative top gradient line */}
+                    <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '3px',
+                        background: 'linear-gradient(90deg, #FFC107, #FF9800, #FFC107)',
+                        backgroundSize: '200% 100%'
+                    }} />
+
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '16px'
+                    }}>
+                        {/* Icon Container with premium styling */}
+                        <div style={{
+                            flexShrink: 0,
+                            width: '44px',
+                            height: '44px',
+                            borderRadius: '12px',
+                            background: 'linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 152, 0, 0.25))',
+                            border: '1px solid rgba(255, 193, 7, 0.4)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '1.2rem',
+                            fontWeight: '700',
+                            color: '#FFC107',
+                            boxShadow: '0 4px 12px rgba(255, 193, 7, 0.2)'
+                        }}>
+                            !
+                        </div>
+
+                        {/* Content */}
+                        <div style={{ flex: 1 }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                marginBottom: '10px'
+                            }}>
+                                <h4 style={{
+                                    margin: 0,
+                                    color: '#FFC107',
+                                    fontSize: '1rem',
+                                    fontWeight: '700',
+                                    letterSpacing: '0.3px',
+                                    textShadow: '0 2px 8px rgba(255, 193, 7, 0.3)'
+                                }}>
+                                    GSoC Organizations Filter Active
+                                </h4>
+                                <span style={{
+                                    fontSize: '0.7rem',
+                                    padding: '3px 8px',
+                                    borderRadius: '6px',
+                                    background: 'rgba(255, 193, 7, 0.2)',
+                                    border: '1px solid rgba(255, 193, 7, 0.4)',
+                                    color: '#FFD54F',
+                                    fontWeight: '600',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.5px'
+                                }}>
+                                    Info
+                                </span>
+                            </div>
+
+                            <p style={{
+                                margin: 0,
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                fontSize: '0.9rem',
+                                lineHeight: '1.6',
+                                fontWeight: '400'
+                            }}>
+                                Contributing to these organizations does <strong style={{
+                                    color: '#FFC107',
+                                    fontWeight: '700'
+                                }}>not guarantee</strong> GSoC selection.
+                                Selection depends on your <span style={{
+                                    color: 'rgba(255, 255, 255, 0.95)',
+                                    fontWeight: '500'
+                                }}>proposal quality, contribution history, and mentor evaluation</span>.
+                                <br />
+                                <span style={{
+                                    display: 'inline-block',
+                                    marginTop: '6px',
+                                    color: '#FFD54F',
+                                    fontSize: '0.85rem',
+                                    fontStyle: 'italic'
+                                }}>
+                                    Tip: Focus on meaningful contributions to projects you're passionate about!
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="list-meta" style={{ marginBottom: '20px', color: 'var(--text-secondary)', fontSize: '0.9rem', textAlign: 'center' }}>
                 Found {issues.length} {issues.length === 1 ? 'mission' : 'missions'}
             </div>
