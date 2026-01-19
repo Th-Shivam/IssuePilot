@@ -64,6 +64,48 @@ function FilterBar({ filters, onFilterChange }) {
                 </div>
             </div>
 
+            {/* GSoC Organizations Filter */}
+            <div className="filter-group" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <label
+                    htmlFor="gsoc-toggle"
+                    className="filter-label"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        cursor: 'pointer',
+                        userSelect: 'none'
+                    }}
+                >
+                    <input
+                        id="gsoc-toggle"
+                        type="checkbox"
+                        checked={filters.gsocOnly || false}
+                        onChange={(e) => onFilterChange('gsocOnly', e.target.checked)}
+                        style={{
+                            width: '18px',
+                            height: '18px',
+                            cursor: 'pointer',
+                            accentColor: 'var(--accent-primary)'
+                        }}
+                    />
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        GSoC Organizations Only
+                        <span style={{
+                            fontSize: '0.7rem',
+                            padding: '2px 6px',
+                            borderRadius: '4px',
+                            background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
+                            color: 'white',
+                            fontWeight: '600',
+                            letterSpacing: '0.5px'
+                        }}>
+                            NEW
+                        </span>
+                    </span>
+                </label>
+            </div>
+
             <button className="btn-search" title="Refresh List" onClick={() => window.location.reload()}>
                 <span>Refresh</span>
             </button>
