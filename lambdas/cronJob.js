@@ -4,6 +4,40 @@ import { DynamoDBDocumentClient, BatchWriteCommand } from "@aws-sdk/lib-dynamodb
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
+// GSoC Organizations List (GitHub organization names)
+// Update this list annually when new GSoC organizations are announced
+const GSOC_ORGANIZATIONS = [
+    'python', 'django', 'flask', 'pytorch', 'tensorflow', 'scikit-learn',
+    'numpy', 'pandas-dev', 'matplotlib', 'nodejs', 'expressjs', 'reactjs',
+    'vuejs', 'angular', 'webpack', 'kubernetes', 'docker', 'apache',
+    'mozilla', 'chromium', 'linux', 'mongodb', 'postgresql', 'redis',
+    'mariadb', 'git', 'gitlab-org', 'github', 'openai', 'huggingface',
+    'keras-team', 'cncf', 'openfaas', 'istio', 'flutter',
+    'react-native-community', 'jupyter', 'apache-spark', 'owasp',
+    'freecodecamp', 'oppia', 'publiclab', 'spring-projects', 'twbs',
+    'tailwindlabs', 'socketio', 'airbnb', 'reduxjs', 'vercel'
+];
+
+/**
+ * Check if a repository belongs to a GSoC organization
+ * @param {string} repositoryUrl - GitHub API repository URL
+ * @returns {boolean} - True if the organization is in the GSoC list
+ */
+const isGSoCOrganization = (repositoryUrl) => {
+    if (!repositoryUrl || typeof repositoryUrl !== 'string') {
+        return false;
+    }
+    
+    // Extract org name from URL like "https://api.github.com/repos/tensorflow/tensorflow"
+    const match = repositoryUrl.match(/repos\/([^\/]+)\//);
+    if (!match || !match[1]) {
+        return false;
+    }
+    
+    const orgName = match[1].toLowerCase();
+    return GSOC_ORGANIZATIONS.includes(orgName);
+};
+
 const classifyIssue = (issue) => {
     const title = (issue.title || "").toLowerCase();
     const body = (issue.body || "").toLowerCase();
@@ -97,15 +131,21 @@ export const handler = async (event) => {
             const category = classifyIssue(issue);
             stats[category]++;
 
+            // Debug: Check GSoC detection
+            const gsocStatus = isGSoCOrganization(issue.repository_url);
+            const repoName = issue.repository_url ? issue.repository_url.replace("https://api.github.com/repos/", "") : "unknown";
+            console.log(`[GSoC Debug] Repo: ${repoName}, isGSoC: ${gsocStatus}`);
+
             return {
                 PutRequest: {
                     Item: {
                         category: category, 
                         issueId: issue.id.toString(),
                         title: issue.title || "No Title",
-                        repository: issue.repository_url ? issue.repository_url.replace("https://api.github.com/repos/", "") : "unknown",
+                        repository: repoName,
                         techStack: "Unknown", 
                         labels: issue.labels ? issue.labels.map(l => l.name) : [],
+                        isGSoC: gsocStatus,
                         githubUrl: issue.html_url || "",
                         fetchedAt: now,
                         ttl: expiry
