@@ -5,7 +5,8 @@ import IssueList from '../components/IssueList';
 function ExplorePage() {
     const [filters, setFilters] = useState({
         language: 'all',
-        label: 'all'
+        label: 'all',
+        gsocOnly: false
     });
 
     const handleFilterChange = (key, value) => {
