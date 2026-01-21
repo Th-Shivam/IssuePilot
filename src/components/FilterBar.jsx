@@ -65,44 +65,24 @@ function FilterBar({ filters, onFilterChange }) {
             </div>
 
             {/* GSoC Organizations Filter */}
-            <div className="filter-group" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <label
-                    htmlFor="gsoc-toggle"
-                    className="filter-label"
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        cursor: 'pointer',
-                        userSelect: 'none'
-                    }}
-                >
+            <div className="filter-group gsoc-filter-group">
+                <label className="filter-label" style={{ marginBottom: '8px' }}>
+                    GSoC Organizations
+                </label>
+                <label className="toggle-switch-container">
                     <input
                         id="gsoc-toggle"
                         type="checkbox"
                         checked={filters.gsocOnly || false}
                         onChange={(e) => onFilterChange('gsocOnly', e.target.checked)}
-                        style={{
-                            width: '18px',
-                            height: '18px',
-                            cursor: 'pointer',
-                            accentColor: 'var(--accent-primary)'
-                        }}
+                        className="toggle-input"
                     />
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        GSoC Organizations Only
-                        <span style={{
-                            fontSize: '0.7rem',
-                            padding: '2px 6px',
-                            borderRadius: '4px',
-                            background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))',
-                            color: 'white',
-                            fontWeight: '600',
-                            letterSpacing: '0.5px'
-                        }}>
-                            NEW
-                        </span>
-                    </span>
+                    <div className="toggle-switch">
+                        <div className="toggle-slider"></div>
+                        <span className="toggle-label toggle-label-off">All</span>
+                        <span className="toggle-label toggle-label-on">GSoC</span>
+                    </div>
+                    <span className="gsoc-new-badge">NEW</span>
                 </label>
             </div>
 
